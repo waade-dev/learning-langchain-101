@@ -1,6 +1,6 @@
-### Running the Chain
+### Running the code
 
-To run the chain, use Python’s `-m` flag from the `lang_chain_basics` directory:
+To run the code, use Python’s `-m` flag from the `lang_chain_basics` directory:
 
 ```bash
 python -m chains.1_chain
