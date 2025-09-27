@@ -1,18 +1,8 @@
 # Import Azure OpenAI
 from langchain_openai import AzureChatOpenAI
-import os
-from dotenv import load_dotenv
+from starter import llm
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
-
-load_dotenv(dotenv_path="/Users/amith.k/Developer/lang-chain-basics/.env")
-
-
-
-llm = AzureChatOpenAI(
-    deployment_name="gpt-4o",
-    temperature=0,
-)
 
 
 messages= [

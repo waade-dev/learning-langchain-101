@@ -1,18 +1,11 @@
-from langchain_openai import AzureChatOpenAI
-import os
-from dotenv import load_dotenv
+
+from starter import llm
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda
 from langchain_core.runnables import RunnableParallel, RunnableBranch
 
-load_dotenv(dotenv_path="/Users/amith.k/Developer/lang-chain-basics/.env")
-
-llm = AzureChatOpenAI(
-    deployment_name="gpt-4o",
-    temperature=0,
-)
 
 messages =[
     ("system", "you are an expert in {topic}"),
