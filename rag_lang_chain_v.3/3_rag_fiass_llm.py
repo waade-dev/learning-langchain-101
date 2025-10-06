@@ -69,14 +69,14 @@ while(True):
         |llm 
         |StrOutputParser())
     
-    final_prompt = (
-        "History:\n" +
-    "\n".join([f"User: {memory}" if isinstance(m, HumanMessage) else f"AI: {memory}" 
-               for m in memory]) +
-    f"\n\nContext:\n{memory}\n\nQuestion: {memory}"
-    )
+    # final_prompt = (
+    #     "History:\n" +
+    # "\n".join([f"User: {memory}" if isinstance(m, HumanMessage) else f"AI: {memory}" 
+    #            for m in memory]) +
+    # f"\n\nContext:\n{memory}\n\nQuestion: {memory}"
+    # )
 
 
-    print("\n--- Prompt to LLM ---\n", final_prompt)
+    # print("\n--- Prompt to LLM ---\n", final_prompt)
     ai_message = chain.invoke(None)
     memory.append(AIMessage(ai_message))
