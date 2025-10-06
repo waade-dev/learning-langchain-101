@@ -9,15 +9,13 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
 
+embeggings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
-
-
-load_dotenv(dotenv_path="/Users/amith.k/Developer/lang_chain_basics/.env")
-
+load_dotenv("/Users/amith.k/Developer/lang_chain_basics/.env")
 llm = AzureChatOpenAI(
     deployment_name="gpt-4o",
-    temperature=0,
+    temperature=0.4,
+    top_p=0.9
 )
 
 physics_template = """You are a very smart physics professor. \
@@ -34,27 +32,25 @@ answer the component parts, and then put them together to answer the broader que
 Here is a question:
 {query}"""
 
+document_template = [physics_template, math_template]
+doc_embeddings = embeggings.embed_documents(document_template)
 
-prompt_template = [physics_template, math_template]
-prompt_embeddings = embeddings.embed_documents(prompt_template)
-# print(prompt_embeddings)
 
-def prompt_router(input):
-    query_embeddings= embeddings.embed_query(input["query"])
-
-    similarity = cosine_similarity([query_embeddings], prompt_embeddings)
+def similarity_search_function(input_question):
+    query_embeddings = embeggings.embed_query(input_question)
+    similarity = cosine_similarity([query_embeddings], doc_embeddings)
     print(similarity)
-    print(similarity.argmax(axis=1)[0])
-    most_similar_idx = similarity.argmax(axis=1)[0]
-    most_similar = prompt_template[most_similar_idx]
-    print(most_similar)
-    return ChatPromptTemplate.from_template(most_similar)
+    print(similarity.argmax())
+    most_favored = document_template[similarity.argmax(axis=1)[0]]
+    fav = ChatPromptTemplate.from_template(most_favored)
+    return fav
 
 
-chain = (
-    {"query": RunnablePassthrough()}|
-    RunnableLambda(prompt_router)|
-    llm|
-    StrOutputParser()
-)
-print(chain.invoke("whats a blackhose"))
+
+chain = ( RunnableLambda(similarity_search_function) | llm | StrOutputParser())
+
+
+
+input_question = input("what is it you like to ask \n")
+print(chain.invoke(input_question))
+

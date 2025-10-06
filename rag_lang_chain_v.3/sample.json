@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "What is RAG?",
+    "content": "RAG stands for Retrieval-Augmented Generation. It combines a retriever that fetches relevant documents and a generator (like an LLM) that produces the final output using those documents."
+  },
+  {
+    "id": 2,
+    "title": "Benefits of RAG",
+    "content": "RAG helps provide accurate answers from large corpora. It reduces hallucinations in LLMs by grounding responses in real documents. Commonly used in question-answering systems and chatbots."
+  },
+  {
+    "id": 3,
+    "title": "How to Chunk Data for RAG",
+    "content": "When preparing documents for RAG, chunking is crucial. Each chunk should be semantically meaningful. You can split by paragraphs, sections, or JSON items. Too large chunks may exceed token limits, while too small chunks may lose context."
+  },
+  {
+    "id": 4,
+    "title": "Embedding Models",
+    "content": "Embedding models convert text into vector representations. These vectors capture semantic meaning. Common embeddings include OpenAI embeddings, Sentence-BERT, and HuggingFace models."
+  },
+  {
+    "id": 5,
+    "title": "FAISS Vector Store",
+    "content": "FAISS is a library for efficient similarity search. It stores embeddings in a vector index and allows fast retrieval of nearest neighbors. Ideal for RAG pipelines to fetch relevant chunks quickly."
+  },
+  {
+    "id": 6,
+    "title": "Metadata in RAG",
+    "content": "Including metadata such as document id, title, author, or source helps in debugging and improves retrieval. Metadata can also be used to filter or rank results."
+  },
+  {
+    "id": 7,
+    "title": "Sliding Window Chunking",
+    "content": "When a document has no clear structure, a sliding window can help. For example, split text into 500-token chunks with 100-token overlap. This ensures no information is lost between chunks."
+  },
+  {
+    "id": 8,
+    "title": "Handling Large Documents",
+    "content": "For large documents, start chunking at the highest semantic level. If the chunk is still too large, go one level deeper. Only split further if necessary. Always maintain context within each chunk."
+  },
+  {
+    "id": 9,
+    "title": "Retriever-Generator Interaction",
+    "content": "In RAG, the retriever fetches relevant documents which are then passed to the generator. The generator uses the retrieved text to produce accurate and context-aware answers."
+  },
+  {
+    "id": 10,
+    "title": "Evaluating RAG Performance",
+    "content": "Performance of a RAG system can be evaluated using metrics like retrieval accuracy, answer correctness, and relevance of the generated text. Testing with realistic queries improves reliability."
+  }
+]
